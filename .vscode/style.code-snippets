@@ -1,0 +1,139 @@
+{
+  "Text Styles": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "te",
+    "body": [
+      "color: '#$1',",
+      "fontSize: wp($2),",
+      "fontWeight: '$3',",
+      "lineHeight: wp($4),"
+    ],
+    "description": "text styles"
+  },
+  "Component Styles": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "st",
+    "body": ["style={styles$1}"],
+    "description": "component styles"
+  },
+  "Styles - alignItems: Center": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "aic",
+    "body": ["alignItems: 'center',"],
+    "description": "component styles"
+  },
+  "Styles - justifyContent: Center": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "jcc",
+    "body": ["justifyContent: 'center',"],
+    "description": "component styles"
+  },
+  "Styles - fontSize": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "fz",
+    "body": ["fontSize: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginTop": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "mt",
+    "body": ["marginTop: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginRight": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "mr",
+    "body": ["marginRight: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginLeft": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "ml",
+    "body": ["marginLeft: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginBottom": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "mb",
+    "body": ["marginBottom: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginHorizontal": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "mh",
+    "body": ["marginHorizontal: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - marginVertical": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "mv",
+    "body": ["marginVertical: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingTop": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "pt",
+    "body": ["paddingTop: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingRight": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "pr",
+    "body": ["paddingRight: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingLeft": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "pl",
+    "body": ["paddingLeft: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingBottom": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "pb",
+    "body": ["paddingBottom: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingHorizontal": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "ph",
+    "body": ["paddingHorizontal: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - paddingVertical": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "pv",
+    "body": ["paddingVertical: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - textAlign": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "tac",
+    "body": ["textAlign: 'center',"],
+    "description": "component styles"
+  },
+  "Styles - width, height": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "size",
+    "body": ["width: wp($1),", "height: wp($1),"],
+    "description": "component styles"
+  },
+  "Styles - flexDirection row": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "fdr",
+    "body": ["flexDirection: 'row',"],
+    "description": "component styles"
+  },
+  "Styles - flexDirection column": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "fdc",
+    "body": ["flexDirection: 'column',"],
+    "description": "component styles"
+  },
+  "Styles - borderRadius column": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "borad",
+    "body": ["borderRadius: wp($1),"],
+    "description": "component styles"
+  }
+}
