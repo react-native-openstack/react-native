@@ -1,4 +1,4 @@
-package com.sample
+package com.zucchini.sample
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

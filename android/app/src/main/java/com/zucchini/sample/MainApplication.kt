@@ -1,4 +1,4 @@
-package com.sample
+package com.zucchini.sample
 
 import android.app.Application
 import com.facebook.react.PackageList
