@@ -1,3 +1,10 @@
+# Firebase
+*.plist
+
+# Env
+.env
+.env.development
+
 # OSX
 #
 .DS_Store
