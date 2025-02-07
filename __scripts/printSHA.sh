@@ -1,0 +1,1 @@
+keytool -list -v -keystore ./android/app/upload-keystore.jks

@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "ci:kill": "sh ./__scripts/killServer.sh",
+    "ci:printSHA": "sh ./__scripts/printSHA.sh"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.4.0",
