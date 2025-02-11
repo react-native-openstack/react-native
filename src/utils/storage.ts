@@ -1,6 +1,7 @@
 import {MMKV} from 'react-native-mmkv';
 
 export enum StorageKey {
+  LANGUAGE = 'LANGUAGE',
   USER = 'USER',
 }
 
