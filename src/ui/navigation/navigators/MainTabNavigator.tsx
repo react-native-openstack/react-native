@@ -1,7 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {View, Text} from 'react-native';
 
-export type MainTabProps = {};
+export type MainTabProps = {
+  SampleScreen: {};
+};
 const MainTab = createBottomTabNavigator<MainTabProps>();
 const MainTabNavigator = () => {
   return (
@@ -12,7 +15,14 @@ const MainTabNavigator = () => {
       }}
       // initialRouteName={''}
     >
-      {/* <MainTab.Screen name="" component={} /> */}
+      <MainTab.Screen
+        name="SampleScreen"
+        component={() => (
+          <View>
+            <Text>MT - SampleScreen</Text>
+          </View>
+        )}
+      />
     </MainTab.Navigator>
   );
 };
