@@ -1,6 +1,7 @@
 import FirestoreApi from '../utils/FirestoreApi';
 import Dto, {Status} from '../dto/Dto';
 import User from '@/domain/model/User';
+import FirestoreCollection from './Collection';
 
 const RemoteDataSource = (() => {
   const api = FirestoreApi.getInstance();
@@ -9,7 +10,7 @@ const RemoteDataSource = (() => {
       try {
         const response = await api
           .findById<User>({
-            collectionPath: 'user',
+            collectionPath: FirestoreCollection.User,
             id,
           })
           .execute();

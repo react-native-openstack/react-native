@@ -1,6 +1,6 @@
 import User from '@/domain/model/User';
-import {persistEffect} from '@/utils/persistEffect';
-import {StorageKey} from '@/utils/storage';
+import {persistEffect} from '@/ui/stores/persistEffect';
+import {StorageKey} from '@/ui/services/storage';
 import {atom} from 'recoil';
 
 export const userState = atom<User | null>({
