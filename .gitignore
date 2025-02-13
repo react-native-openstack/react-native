@@ -33,6 +33,7 @@ DerivedData
 #
 build/
 .idea
+.kotlin
 .gradle
 local.properties
 *.iml

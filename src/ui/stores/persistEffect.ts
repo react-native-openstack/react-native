@@ -1,5 +1,5 @@
 import {AtomEffect} from 'recoil';
-import storage, {StorageKey} from '@/utils/storage';
+import storage, {StorageKey} from '@/ui/services/storage';
 
 export const persistEffect = <T>(key: StorageKey): AtomEffect<T> => {
   return ({setSelf, onSet}) => {
