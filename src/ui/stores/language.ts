@@ -1,10 +1,25 @@
-import {persistEffect} from '@/ui/stores/persistEffect';
-import {StorageKey} from '@/ui/services/storage';
-import {atom} from 'recoil';
 import {LanguageType} from '../services/i18n';
+import {StorageKey} from '@/data/storage';
+import createStore from './createStore';
 
-export const languageState = atom<LanguageType | null>({
-  key: 'language/languageState',
-  default: null,
-  effects: [persistEffect<LanguageType | null>(StorageKey.LANGUAGE)],
+type State = {
+  language: LanguageType | null;
+};
+
+type Actions = {
+  setLanguage: (language: State['language']) => void;
+  clearLanguage: () => void;
+};
+
+export const useLanguageStore = createStore<State, Actions>({
+  initializer: (set, get) => ({
+    language: get()?.language ?? null,
+    setLanguage: language => {
+      set({language});
+    },
+    clearLanguage: () => {
+      set({language: null});
+    },
+  }),
+  storageKey: StorageKey.LANGUAGE,
 });

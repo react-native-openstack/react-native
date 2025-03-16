@@ -1,39 +1,42 @@
 import Entity from '@/domain/model/Entity';
-import firestore, {
+import {
   FirebaseFirestoreTypes,
+  collection,
+  getFirestore,
 } from '@react-native-firebase/firestore';
+
+export enum FirestoreCollection {
+  User = 'user',
+  Card = 'card',
+  Deck = 'deck',
+}
 
 export type QueryBuilder = (
   ref: FirebaseFirestoreTypes.CollectionReference,
 ) => FirebaseFirestoreTypes.Query;
 
-export type FindAllResult<T extends Entity> = T[];
 export type FindAllOptions = {
   collectionPath: string;
   queryBuilder?: QueryBuilder;
 };
 
-export type FindByIdResult<T extends Entity> = T | null;
 export type FindByIdOptions = {
   collectionPath: string;
   id: string;
 };
 
-export type CreateResult = string;
 export type CreateOptions<T> = {
   collectionPath: string;
   data: T;
   id?: string;
 };
 
-export type UpdateResult = void;
 export type UpdateOptions<T> = {
   collectionPath: string;
   id: string;
   data: Partial<T>;
 };
 
-export type RemoveResult = void;
 export type RemoveOptions = {
   collectionPath: string;
   id: string;
@@ -53,31 +56,32 @@ export type FirestoreWriteOperation<T> = FirestoreFetchOperation<T> & {
 };
 
 type FirestoreApiInstance = {
+  db: FirebaseFirestoreTypes.Module;
   findAll: <T extends Entity>(
     options: FindAllOptions,
-  ) => FirestoreFetchOperation<FindAllResult<T>>;
+  ) => FirestoreFetchOperation<T[]>;
   findById: <T extends Entity>(
     options: FindByIdOptions,
-  ) => FirestoreFetchOperation<FindByIdResult<T>>;
+  ) => FirestoreFetchOperation<T | null>;
   create: <T extends Entity>(
     options: CreateOptions<T>,
-  ) => FirestoreWriteOperation<CreateResult>;
+  ) => FirestoreWriteOperation<T>;
   update: <T extends Entity>(
     options: UpdateOptions<T>,
-  ) => FirestoreWriteOperation<UpdateResult>;
-  remove: (options: RemoveOptions) => FirestoreWriteOperation<RemoveResult>;
+  ) => FirestoreWriteOperation<T>;
+  remove: (options: RemoveOptions) => FirestoreWriteOperation<void>;
 };
 
 const FirestoreApi = (function () {
   let instance: FirestoreApiInstance;
 
   function initialize(): FirestoreApiInstance {
-    const db = firestore();
+    const db = getFirestore();
 
     const findAll = <T extends Entity>({
       collectionPath,
       queryBuilder,
-    }: FindAllOptions): FirestoreFetchOperation<FindAllResult<T>> => {
+    }: FindAllOptions): FirestoreFetchOperation<T[]> => {
       let _transaction: FirebaseFirestoreTypes.Transaction;
 
       const withTransaction = (
@@ -89,7 +93,7 @@ const FirestoreApi = (function () {
 
       const execute = async (): Promise<T[]> => {
         try {
-          const collectionRef = db.collection(collectionPath);
+          const collectionRef = collection(db, collectionPath);
           const query = queryBuilder
             ? queryBuilder(collectionRef)
             : collectionRef;
@@ -128,7 +132,7 @@ const FirestoreApi = (function () {
     const findById = <T extends Entity>({
       collectionPath,
       id,
-    }: FindByIdOptions): FirestoreFetchOperation<FindByIdResult<T>> => {
+    }: FindByIdOptions): FirestoreFetchOperation<T | null> => {
       let _transaction: FirebaseFirestoreTypes.Transaction | null = null;
 
       const withTransaction = (
@@ -139,7 +143,7 @@ const FirestoreApi = (function () {
       };
 
       const execute = async (): Promise<T | null> => {
-        const docRef = db.collection(collectionPath).doc(id);
+        const docRef = collection(db, collectionPath).doc(id);
         try {
           let docSnapshot;
 
@@ -173,7 +177,7 @@ const FirestoreApi = (function () {
       collectionPath,
       data,
       id,
-    }: CreateOptions<T>): FirestoreWriteOperation<CreateResult> => {
+    }: CreateOptions<T>): FirestoreWriteOperation<T> => {
       let _transaction: FirebaseFirestoreTypes.Transaction | null = null;
       let _batch: FirebaseFirestoreTypes.WriteBatch | null = null;
 
@@ -189,20 +193,25 @@ const FirestoreApi = (function () {
         return api;
       };
 
-      const execute = async (): Promise<string> => {
+      const execute = async (): Promise<T> => {
         try {
-          const collectionRef = db.collection(collectionPath);
+          const collectionRef = collection(db, collectionPath);
           const docRef = id ? collectionRef.doc(id) : collectionRef.doc(); // ID가 있으면 지정, 없으면 자동 생성
+          const newData: Entity = {
+            ...data,
+            updated_at_millis: Date.now(),
+            created_at_millis: Date.now(),
+          };
 
           if (_transaction) {
-            _transaction.set(docRef, data);
+            _transaction.set(docRef, newData);
           } else if (_batch) {
-            _batch.set(docRef, data);
+            _batch.set(docRef, newData);
           } else {
-            await docRef.set(data);
+            await docRef.set(newData);
           }
 
-          return docRef.id;
+          return {...data, id: docRef.id} as T;
         } catch (error) {
           console.error('Error creating document:', error);
           throw error;
@@ -222,7 +231,7 @@ const FirestoreApi = (function () {
       collectionPath,
       id,
       data,
-    }: UpdateOptions<T>): FirestoreWriteOperation<UpdateResult> => {
+    }: UpdateOptions<T>): FirestoreWriteOperation<T> => {
       let _transaction: FirebaseFirestoreTypes.Transaction | null = null;
       let _batch: FirebaseFirestoreTypes.WriteBatch | null = null;
 
@@ -238,17 +247,20 @@ const FirestoreApi = (function () {
         return api;
       };
 
-      const execute = async (): Promise<void> => {
+      const execute = async (): Promise<T> => {
         try {
-          const docRef = db.collection(collectionPath).doc(id);
+          const docRef = collection(db, collectionPath).doc(id);
+          const newData: Entity = {...data, updated_at_millis: Date.now()};
 
           if (_transaction) {
-            _transaction.update(docRef, data);
+            _transaction.update(docRef, newData);
           } else if (_batch) {
-            _batch.update(docRef, data);
+            _batch.update(docRef, newData);
           } else {
-            await docRef.update(data);
+            await docRef.update(newData);
           }
+
+          return {...data, id: docRef.id} as T;
         } catch (error) {
           console.error(`Error updating document with ID ${id}:`, error);
           throw error;
@@ -267,7 +279,7 @@ const FirestoreApi = (function () {
     const remove = ({
       collectionPath,
       id,
-    }: RemoveOptions): FirestoreWriteOperation<RemoveResult> => {
+    }: RemoveOptions): FirestoreWriteOperation<void> => {
       let _transaction: FirebaseFirestoreTypes.Transaction | null = null;
       let _batch: FirebaseFirestoreTypes.WriteBatch | null = null;
 
@@ -285,7 +297,7 @@ const FirestoreApi = (function () {
 
       const execute = async (): Promise<void> => {
         try {
-          const docRef = db.collection(collectionPath).doc(id);
+          const docRef = collection(db, collectionPath).doc(id);
 
           if (_transaction) {
             _transaction.delete(docRef);
@@ -310,6 +322,7 @@ const FirestoreApi = (function () {
     };
 
     return {
+      db,
       findAll,
       findById,
       create,

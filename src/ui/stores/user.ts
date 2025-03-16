@@ -1,10 +1,25 @@
 import User from '@/domain/model/User';
-import {persistEffect} from '@/ui/stores/persistEffect';
-import {StorageKey} from '@/ui/services/storage';
-import {atom} from 'recoil';
+import {StorageKey} from '@/data/storage';
+import createStore from './createStore';
 
-export const userState = atom<User | null>({
-  key: 'user/userState',
-  default: null,
-  effects: [persistEffect<User | null>(StorageKey.USER)],
+type State = {
+  user: User | null;
+};
+
+type Actions = {
+  setUser: (user: State['user']) => void;
+  clearUser: () => void;
+};
+
+export const useUserStore = createStore<State, Actions>({
+  initializer: (set, get) => ({
+    user: get()?.user ?? null,
+    setUser: user => {
+      set({user});
+    },
+    clearUser: () => {
+      set({user: null});
+    },
+  }),
+  storageKey: StorageKey.USER,
 });
