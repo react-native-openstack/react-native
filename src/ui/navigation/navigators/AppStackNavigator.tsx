@@ -1,28 +1,30 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import OnboardingStackNavigator from './OnboardingStackNavigator';
 import MainTabNavigator from './MainTabNavigator';
+import AccountDeletionScreen from '@/ui/screens/AccountDeletionScreen';
 
 export type AppStackRouteProps = {
   Onboarding?: {};
   Main?: {};
+  AccountDeletionScreen?: {};
 };
 
-type AppStackProps = {
-  isOnboardingCompleted: boolean;
-};
+type AppStackProps = {};
 
 const AppStack = createNativeStackNavigator<AppStackRouteProps>();
-const AppStackNavigator = ({isOnboardingCompleted}: AppStackProps) => {
+const AppStackNavigator = ({}: AppStackProps) => {
   return (
     <AppStack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_right',
+        animation: 'fade_from_bottom',
       }}
-      initialRouteName={isOnboardingCompleted ? 'Main' : 'Onboarding'}>
-      <AppStack.Screen name="Onboarding" component={OnboardingStackNavigator} />
+      initialRouteName={'Main'}>
       <AppStack.Screen name="Main" component={MainTabNavigator} />
+      <AppStack.Screen
+        name="AccountDeletionScreen"
+        component={AccountDeletionScreen}
+      />
     </AppStack.Navigator>
   );
 };

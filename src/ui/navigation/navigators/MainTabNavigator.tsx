@@ -1,28 +1,22 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Text} from 'react-native';
+import ProfileScreen from '@/ui/screens/ProfileScreen';
+import MainTabBar from './MainTabBar';
 
-export type MainTabProps = {
-  SampleScreen: {};
+export type MainTabRouteProps = {
+  AnalysisTab?: {};
+  ProfileTab?: {};
 };
-const MainTab = createBottomTabNavigator<MainTabProps>();
+const MainTab = createBottomTabNavigator<MainTabRouteProps>();
 const MainTabNavigator = () => {
   return (
     <MainTab.Navigator
-      // tabBar={() => <></>}
+      tabBar={MainTabBar}
       screenOptions={{
         headerShown: false,
       }}
-      // initialRouteName={''}
-    >
-      <MainTab.Screen
-        name="SampleScreen"
-        component={() => (
-          <View>
-            <Text>MT - SampleScreen</Text>
-          </View>
-        )}
-      />
+      initialRouteName={'ProfileTab'}>
+      <MainTab.Screen name="ProfileTab" component={ProfileScreen} />
     </MainTab.Navigator>
   );
 };

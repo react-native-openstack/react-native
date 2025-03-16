@@ -1,9 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Text, View} from 'react-native';
+import LoginScreen from '@/ui/screens/LoginScreen';
 
 export type OnboardingStackProps = {
-  SampleScreen: {};
+  LoginScreen?: {};
+  App?: {};
 };
 const OnboardingStack = createNativeStackNavigator<OnboardingStackProps>();
 const OnboardingStackNavigator = () => {
@@ -13,15 +14,11 @@ const OnboardingStackNavigator = () => {
         headerShown: false,
         animation: 'slide_from_right',
       }}
-      // initialRouteName={''}
-    >
+      initialRouteName={'LoginScreen'}>
       <OnboardingStack.Screen
-        name="SampleScreen"
-        component={() => (
-          <View>
-            <Text>OS - SampleScreen</Text>
-          </View>
-        )}
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{gestureEnabled: false}}
       />
     </OnboardingStack.Navigator>
   );
