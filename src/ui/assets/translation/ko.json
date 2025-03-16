@@ -2,6 +2,28 @@
   "privacyLink": "https://sites.google.com/view/zucchini-documents",
   "termsOfUseLink": "https://sites.google.com/view/zucchini-terms-of-use",
   "supportLink": "https://sites.google.com/view/zucchini-contact-us",
+  "continueWithGoogle": "Google로 로그인",
+  "continueWithApple": "Apple로 로그인",
+  "continueWithGuest": "게스트로 로그인",
+  "privacyPolicy": "개인정보 처리방침",
+  "termsOfUse": "서비스 이용약관",
+  "support": "문의하기",
+  "accountDeletion": "계정삭제",
+  "cancel": "취소",
+  "remove": "삭제",
+  "confirm": "확인",
+  "save": "저장",
+  "back": "뒤로",
+  "edit": "수정",
+
+  "loginScreen-title": "암기카드",
+  "loginScreen-subtitle": "카드의 양면을 이용해서 효과적으로\n학습해보세요!",
+  "loginScreen-privacyAndTermsOfUse": "계속함으로써 <#1이용약관> 및 <#2개인정보처리방침>에 동의합니다.",
+
+  "accountDeletionScreen-title": "계정 삭제",
+  "accountDeletionScreen-bodyTitle": "계정을 삭제하기 전 알아야 할 내용",
+  "accountDeletionScreen-bodyContent": "계정 삭제 시, 모든 기록이 사라지며 복구가 불가능합니다.",
+  "accountDeletionScreen-delete": "삭제하기",
 
   "-": "-"
 }

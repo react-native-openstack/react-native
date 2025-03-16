@@ -2,6 +2,28 @@
   "privacyLink": "https://sites.google.com/view/zucchini-documents-en",
   "termsOfUseLink": "https://sites.google.com/view/zucchini-terms-of-use-en",
   "supportLink": "https://sites.google.com/view/zucchini-contact-us",
+  "continueWithGoogle": "Sign in with Google",
+  "continueWithApple": "Sign in with Apple",
+  "continueWithGuest": "Sign in as Guest",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfUse": "Terms of Use",
+  "support": "Support",
+  "accountDeletion": "Delete Account",
+  "cancel": "Cancel",
+  "remove": "Remove",
+  "confirm": "Confirm",
+  "save": "Save",
+  "back": "Back",
+  "edit": "Edit",
+
+  "loginScreen-title": "Flashcards",
+  "loginScreen-subtitle": "Use both sides of the card\nto study effectively!",
+  "loginScreen-privacyAndTermsOfUse": "By continuing, you agree to the <#1Terms of Use> and <#2Privacy Policy>.",
+
+  "accountDeletionScreen-title": "Delete Account",
+  "accountDeletionScreen-bodyTitle": "Things to know before deleting your account",
+  "accountDeletionScreen-bodyContent": "Once your account is deleted, all records will be lost and cannot be recovered.",
+  "accountDeletionScreen-delete": "Delete",
 
   "-": "-"
 }

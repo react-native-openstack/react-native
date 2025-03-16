@@ -1,3 +1,8 @@
+# Android Build
+keystore.properties
+upload-keystore.jks
+google-services.json
+
 # Firebase
 *.plist
 
@@ -41,6 +46,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+.kotlin/
 
 # node.js
 #
