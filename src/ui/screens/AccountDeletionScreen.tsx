@@ -69,10 +69,10 @@ const AccountDeletionScreen = ({
       <View style={styles.line} />
       <View style={styles.dataList}>
         <Typo style={styles.dataList__data} font={Font.Regular}>
-          - Remove your card groups
+          - Remove your user info
         </Typo>
         <Typo style={styles.dataList__data} font={Font.Regular}>
-          - Remove your cards
+          - Remove your app data
         </Typo>
       </View>
       <TouchableOpacity

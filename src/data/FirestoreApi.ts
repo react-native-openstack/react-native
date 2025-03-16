@@ -7,8 +7,6 @@ import {
 
 export enum FirestoreCollection {
   User = 'user',
-  Card = 'card',
-  Deck = 'deck',
 }
 
 export type QueryBuilder = (
