@@ -1,10 +1,9 @@
-import User from '@/domain/model/User';
-import storage, {StorageKey} from '../services/storage';
 import {useEffect, useState} from 'react';
 import {initializeGoogleSignIn} from '../services/socialLogin/googleSignIn';
+import {useUserStore} from '../stores/user';
 
 const useAppInitialization = () => {
-  const user = storage.get<User>(StorageKey.USER);
+  const {user} = useUserStore();
 
   const isOnboardingCompleted = !!user?.onboarding_completed;
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
@@ -18,7 +17,7 @@ const useAppInitialization = () => {
       setIsInitialized(true);
     };
     initialize();
-  }, []);
+  }, [user?.onboarding_completed]);
 
   return {
     isInitialized,

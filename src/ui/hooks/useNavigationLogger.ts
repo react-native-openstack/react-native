@@ -1,7 +1,7 @@
 // src/navigation/navigationLogger.ts
 import {useRef} from 'react';
 import {NavigationContainerRef} from '@react-navigation/native';
-import analytics from '@react-native-firebase/analytics';
+import {getAnalytics} from '@react-native-firebase/analytics';
 
 export const useNavigationLogger = <T extends {}>() => {
   const navigationRef = useRef<NavigationContainerRef<T>>(null);
@@ -18,7 +18,7 @@ export const useNavigationLogger = <T extends {}>() => {
     const currentRouteName = currentRoute?.name;
 
     if (previousRouteName !== currentRouteName && currentRouteName) {
-      await analytics().logScreenView({
+      await getAnalytics().logScreenView({
         screen_name: currentRouteName,
         screen_class: currentRouteName,
       });
