@@ -1,23 +1,28 @@
-import {FIREBASE_AUTH_WEB_CLIENT_ID} from '@env';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 export const initializeGoogleSignIn = () => {
   GoogleSignin.configure({
-    webClientId: FIREBASE_AUTH_WEB_CLIENT_ID,
+    webClientId:
+      '394237640809-cqimf86b43i1l4kb7aog683tniphb2en.apps.googleusercontent.com',
+    scopes: [],
   });
 };
 
 export const signInWithGoogle = async () => {
-  await GoogleSignin.hasPlayServices({
-    showPlayServicesUpdateDialog: true,
-  });
+  try {
+    await GoogleSignin.hasPlayServices({
+      showPlayServicesUpdateDialog: true,
+    });
 
-  const userInfo = await GoogleSignin.signIn();
+    const userInfo = await GoogleSignin.signIn({});
 
-  if (userInfo.type === 'cancelled') {
-    return null;
-  } else {
-    return userInfo.data;
+    if (userInfo.type === 'cancelled') {
+      return null;
+    } else {
+      return userInfo.data;
+    }
+  } catch (error) {
+    console.log('signInWithGoogle', error);
   }
 };
 

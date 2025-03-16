@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 export enum AuthenticationProvider {
   Google = 'google',
   Apple = 'apple',
-  EmailPassword = 'EmailPassword',
+  Guest = 'Guest',
 }
 
 export const signIn = async ({
@@ -15,7 +15,9 @@ export const signIn = async ({
 }) => {
   try {
     if (AuthenticationProvider.Google === provider) {
-      const signedUser = await signInWithGoogle();
+      const signedUser = await signInWithGoogle().catch(e => {
+        console.error('signInWithGoogle', e);
+      });
 
       if (!signedUser) {
         throw Error('Fail sign in');
@@ -42,7 +44,8 @@ export const signIn = async ({
 
       return userCredential;
     } else {
-      // TODO 이메알/패스워드 로그인 기능 추가
+      const userCredential = await auth().signInAnonymously();
+      return userCredential;
     }
   } catch (error) {
     console.error('Error signing in:', error);

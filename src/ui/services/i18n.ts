@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {NativeModules, Platform} from 'react-native';
 import _ from 'lodash';
-import storage, {StorageKey} from './storage';
+import storage, {StorageKey} from '../../data/storage';
 
 import de from '@/ui/assets/translation/de.json';
 import en from '@/ui/assets/translation/en.json';
@@ -30,8 +30,8 @@ const resources = {
   zh: {translation: zh},
 };
 
-const loadLanguage = (): string => {
-  let language = storage.get<string>(StorageKey.LANGUAGE) ?? '';
+const loadLanguage = async () => {
+  let language = (await storage.get<string>(StorageKey.LANGUAGE)) ?? '';
   if (language.length === 0) {
     language =
       Platform.OS === 'ios'
@@ -43,19 +43,28 @@ const loadLanguage = (): string => {
       language = language.split('_')[0];
     }
   }
+  console.log('loadLanguage', language);
   return language;
 };
 
-const initializeI18n = () => {
-  const language = loadLanguage();
-  i18n.use(initReactI18next).init({
-    compatibilityJSON: 'v4',
-    lng: language,
-    resources,
-    fallbackLng: 'en',
-    interpolation: {escapeValue: false},
-    react: {useSuspense: false},
-  });
+const initializeI18n = async () => {
+  const lng = await loadLanguage();
+  i18n
+    .use(initReactI18next)
+    .init({
+      compatibilityJSON: 'v4',
+      lng,
+      resources,
+      fallbackLng: 'en',
+      interpolation: {escapeValue: false},
+      react: {useSuspense: false},
+      missingKeyHandler: (lang, ns, key) => {
+        console.error(`[${lang}] 누락된 키: ${key}`);
+      },
+    })
+    .catch(e => {
+      console.error('initializeI18n', e);
+    });
 };
 
 initializeI18n();
@@ -81,9 +90,32 @@ export const setLanguage = (lang: LanguageType) => {
 
 // TODO 추가되지 않은 키는 여기에 추가해주세요.
 export const tk = {
+  // Common
   privacyLink: 'privacyLink',
   termsOfUseLink: 'termsOfUseLink',
   supportLink: 'supportLink',
+  continueWithGoogle: 'continueWithGoogle',
+  continueWithApple: 'continueWithApple',
+  continueWithGuest: 'continueWithGuest',
+  privacyPolicy: 'privacyPolicy',
+  termsOfUse: 'termsOfUse',
+  support: 'support',
+  accountDeletion: 'accountDeletion',
+  cancel: 'cancel',
+  remove: 'remove',
+  confirm: 'confirm',
+  save: 'save',
+  back: 'back',
+  edit: 'edit',
+  // LoginScreen
+  loginScreen_title: 'loginScreen-title',
+  loginScreen_subtitle: 'loginScreen-subtitle',
+  loginScreen_privacyAndTermsOfUse: 'loginScreen-privacyAndTermsOfUse',
+  // AccountDeletionScreen
+  accountDeletionScreen_title: 'accountDeletionScreen-title',
+  accountDeletionScreen_bodyTitle: 'accountDeletionScreen-bodyTitle',
+  accountDeletionScreen_bodyContent: 'accountDeletionScreen-bodyContent',
+  accountDeletionScreen_delete: 'accountDeletionScreen-delete',
 };
 
 export const validateTranslationKeys = (lang: string, json: any) => {
