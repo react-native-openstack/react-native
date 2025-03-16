@@ -15,6 +15,12 @@ buildscript {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+
+        // [ISSUE] Error: No Firebase App '[DEFAULT]' has been created - call firebase.initializeApp(), js engine: hermes
+        classpath 'com.google.gms:google-services:4.4.2'
+
+        // [ISSUE] The Crashlytics build ID is missing. This occurs when the Crashlytics Gradle plugin is missing from your app's build configuration.
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
     }
 }
 
